@@ -1,0 +1,48 @@
+---
+title: "Untitled"
+author: "Indrajit, Innocent ,Oluwaseyi,Funke ,Ope"
+date: "2023-02-13"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+```{r load-packages, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(knitr)
+library(ggplot2)
+```
+```{r}
+Hotel.Reservations <- read.csv("~/Desktop/R Assignment/Hotel Reservations.csv")
+str(Hotel.Reservations)
+names(Hotel.Reservations)
+head(Hotel.Reservations, n=15)
+sum(Hotel.Reservations$no_of_adults)
+Hotel.Reservations %>% filter(no_of_adults > 2)
+Hotel.Reservations[complete.cases(Hotel.Reservations), ]
+print(Hotel.Reservations)
+Hotel.Reservations [!duplicated(Hotel.Reservations$no_of_adults), ]
+Hotel.Reservations %>% arrange(desc(no_of_children), desc(no_of_adults))
+rename(Hotel.Reservations, adults = no_of_adults, children = no_of_children)
+Hotel.Reservations %>% mutate(adults_new = no_of_adults*2)
+summary(Hotel.Reservations)
+mean (Hotel.Reservations$no_of_weekend_nights)
+median(Hotel.Reservations$no_of_weekend_nights)
+range(Hotel.Reservations$no_of_weekend_nights)
+counts = table(Hotel.Reservations)
+max_count <- max(counts)
+mode_indices <- which(counts == max_count)
+mode_values <- names (counts) [mode_indices]
+mode_values <- as.numeric(mode_values)
+print(mode_values)
+ggplot(Hotel.Reservations, aes(x = room_type_reserved , y = no_of_adults))+ geom_point(size = 3, color = "steelblue", shape = 21)
+ggplot(data = Hotel.Reservations,aes(x = Hotel.Reservations$no_of_weekend_nights,fill = factor(Hotel.Reservations$no_of_adults)))+geom_bar()
+dim(Hotel.Reservations)
+Y = Hotel.Reservations[, "no_of_adults"]
+X = Hotel.Reservations[, "no_of_children"]
+co_no_corr = cor(Y,X, method = "pearson")
+co_no_corr
+
+```
